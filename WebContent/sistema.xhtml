@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<h:head>
+	</h:head>
+	
+	<h:body>
+	<p:panel header="Cesta de Compra">
+		<h:form id="forment">
+			<h2><h:outputText value="Cesta de Compras"></h:outputText></h2>
+			
+			<p:dataList value="#{mb.produtos}" var="linha">
+				#{linha.nome}, #{linha.preco},
+				<img src="#{linha.imagem}" width="150px" height="150px" />
+			</p:dataList>
+			
+			<h:selectManyCheckbox value="#{mb.escolha}" layout="pageDirection">
+				<f:selectItems value="#{mb.itens}" />
+			</h:selectManyCheckbox>
+			
+			<p:commandButton value="Enviar para Cesta" action="#{mb.processo}"
+				ajax="true" update=":formsai">
+			</p:commandButton>
+			
+		</h:form>
+		</p:panel>
+		
+		<p:panel header="Carrinho">
+		<h:form id="formsai">
+			<h2>Itens Marcados</h2>
+			<p:dataList value="#{mb.cesta}" var="linha">
+				#{linha.nome} = #{linha.preco}
+			</p:dataList>
+			<h:outputText value="Total : #{mb.mbTotal}" />
+		</h:form>
+		</p:panel>
+	</h:body>
+	
+</html>
